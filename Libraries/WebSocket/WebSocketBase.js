@@ -96,7 +96,7 @@ class WebSocketBase extends EventTarget {
     throw new Error('Subclass must define sendStringImpl method');
   }
 
-  sendArrayBufferImpl(): void {
+  sendArrayBufferImpl(data: ArrayBuffer): void {
     throw new Error('Subclass must define sendArrayBufferImpl method');
   }
 }
