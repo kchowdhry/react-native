@@ -240,6 +240,22 @@ public class WebSocketModule extends ReactContextBaseJavaModule {
     }
   }
 
+  @ReactMethod
+  public void sendBinary(String message, int id) {
+    WebSocket client = mWebSocketConnections.get(id);
+    if (client == null) {
+      // This is a programmer error
+      throw new RuntimeException("Cannot send a binary message. Unknown WebSocket id" + id);
+    }
+    try {
+      client.sendMessage(
+        WebSocket.PayloadType.BINARY,
+        new Buffer().write(ByteString.decodeBase64(message)));
+    } catch (IOException | IllegalStateException e) {
+      notifyWebSocketFailed(id, e.getMessage());
+    }
+  }
+
   private void notifyWebSocketFailed(int id, String message) {
     WritableMap params = Arguments.createMap();
     params.putInt("id", id);
