@@ -119,7 +119,7 @@ public class WebSocketModule extends ReactContextBaseJavaModule {
       public void onMessage(BufferedSource bufferedSource, WebSocket.PayloadType payloadType) {
         String message;
         try {
-          message = bufferedSource.readUtf8();
+          message = payloadType == WebSocket.PayloadType.BINARY ? bufferedSource.readByteString().base64() : bufferedSource.readUtf8();
         } catch (IOException e) {
           notifyWebSocketFailed(id, e.getMessage());
           return;
