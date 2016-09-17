@@ -269,10 +269,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
-				WARNING_CFLAGS = (
-					"-Werror",
-					"-Wall",
-				);
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
 		};
@@ -311,10 +308,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
-				WARNING_CFLAGS = (
-					"-Werror",
-					"-Wall",
-				);
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
 		};
