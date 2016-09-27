@@ -76,6 +76,11 @@ public class ReactViewManager extends ViewGroupManager<ReactViewGroup> {
     view.setBorderStyle(borderStyle);
   }
 
+  @ReactProp(name = "clipChildrenAndroid")
+  public void setClipChildren(ReactViewGroup view, boolean clipChildren) {
+    view.setClipChildren(clipChildren);
+  }
+
   @ReactProp(name = "hitSlop")
   public void setHitSlop(final ReactViewGroup view, @Nullable ReadableMap hitSlop) {
     if (hitSlop == null) {
