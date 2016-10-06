@@ -455,4 +455,11 @@ module.exports = {
    * @platform android
    */
   needsOffscreenAlphaCompositing: PropTypes.bool,
+
+    /**
+   * Directly maps to the android ViewGroup function 'setClipChildren(boolean)'.
+   *
+   * @platform android
+   */
+  clipChildrenAndroid: PropTypes.bool,
 };
