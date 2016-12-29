@@ -99,6 +99,7 @@ public class ReactViewGroup extends ViewGroup implements
 
   public ReactViewGroup(Context context) {
     super(context);
+    setClipChildren(false);
   }
 
   @Override
