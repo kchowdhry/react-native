@@ -105,6 +105,7 @@ public class ReactViewGroup extends ViewGroup implements
     super(context);
 
     mDrawingOrderHelper = new ViewGroupDrawingOrderHelper(this);
+    setClipChildren(false);
   }
 
   @Override
