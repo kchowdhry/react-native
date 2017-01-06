@@ -765,21 +765,31 @@ const ScrollView = createReactClass({
         // AndroidSwipeRefreshLayout and use flex: 1 for the ScrollView.
         // Note: we should only apply props.style on the wrapper
         // however, the ScrollView still needs the baseStyle to be scrollable
-
-        return React.cloneElement(
-          refreshControl,
-          {style: props.style},
-          <ScrollViewClass {...props} style={baseStyle} ref={this._setScrollViewRef}>
-            {contentContainer}
-          </ScrollViewClass>
+        return (
+          <View style={{ flexGrow: 1 }} clipChildrenAndroid>
+            {React.cloneElement(
+              refreshControl,
+              {style: props.style},
+              <ScrollViewClass {...props} style={baseStyle} ref={this._setScrollViewRef}>
+                {contentContainer}
+              </ScrollViewClass>
+            )}
+          </View>
         );
       }
     }
-    return (
+
+    const rawScrollView = (
       <ScrollViewClass {...props} ref={this._setScrollViewRef}>
         {contentContainer}
       </ScrollViewClass>
     );
+    const androidScrollView = (
+      <View style={{ flexGrow: 1 }} clipChildrenAndroid>
+        {rawScrollView}
+      </View>
+    )
+    return Platform.OS === 'android' ? androidScrollView : rawScrollView;
   }
 });
 
