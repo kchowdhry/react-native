@@ -830,4 +830,8 @@ var styles = StyleSheet.create({
   },
 });
 
+TextInput.defaultProps = {
+  underlineColorAndroid: 'transparent',
+};
+
 module.exports = TextInput;
