@@ -766,7 +766,7 @@ const ScrollView = createReactClass({
         // Note: we should only apply props.style on the wrapper
         // however, the ScrollView still needs the baseStyle to be scrollable
         return (
-          <View style={{ flexGrow: 1 }} clipChildrenAndroid>
+          <View style={{ flex: 1 }} clipChildrenAndroid>
             {React.cloneElement(
               refreshControl,
               {style: props.style},
@@ -785,7 +785,7 @@ const ScrollView = createReactClass({
       </ScrollViewClass>
     );
     const androidScrollView = (
-      <View style={{ flexGrow: 1 }} clipChildrenAndroid>
+      <View style={{ flex: 1 }} clipChildrenAndroid>
         {rawScrollView}
       </View>
     )
