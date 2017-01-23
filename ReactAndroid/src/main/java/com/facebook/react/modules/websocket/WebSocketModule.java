@@ -42,6 +42,7 @@ import com.facebook.react.common.ReactConstants;
 import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.modules.network.ForwardingCookieHandler;
+import com.facebook.react.modules.network.OkHttpClientProvider;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -111,7 +112,8 @@ public class WebSocketModule extends ReactContextBaseJavaModule {
       } catch (GeneralSecurityException e) {
         throw new AssertionError(); // The system has no TLS. Just give up.
       }
-      client = new OkHttpClient.Builder()
+      // If on PreLollipop this will override the debugSocketFactory
+      client = OkHttpClientProvider.enableTls12OnPreLollipop(new OkHttpClient.Builder()
         .connectTimeout(10, TimeUnit.SECONDS)
         .writeTimeout(10, TimeUnit.SECONDS)
         .readTimeout(0, TimeUnit.MINUTES) // Disable timeouts for read
@@ -121,15 +123,15 @@ public class WebSocketModule extends ReactContextBaseJavaModule {
           public boolean verify(String hostname, SSLSession session) {
             return true;
           }
-        })
+        }))
         .build();
     }
     else
     {
-      client = new OkHttpClient.Builder()
+      client = OkHttpClientProvider.enableTls12OnPreLollipop(new OkHttpClient.Builder()
         .connectTimeout(10, TimeUnit.SECONDS)
         .writeTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(0, TimeUnit.MINUTES) // Disable timeouts for read
+        .readTimeout(0, TimeUnit.MINUTES)) // Disable timeouts for read
         .build();
     }
 
