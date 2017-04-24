@@ -14,8 +14,8 @@
 
 var TextInputState = require('TextInputState');
 
-function dismissKeyboard() {
-  TextInputState.blurTextInput(TextInputState.currentlyFocusedField());
+function dismissKeyboard(animateKeyboard) {
+  TextInputState.blurTextInput(TextInputState.currentlyFocusedField(), animateKeyboard);
 }
 
 module.exports = dismissKeyboard;

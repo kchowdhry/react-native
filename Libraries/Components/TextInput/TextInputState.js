@@ -37,11 +37,12 @@ var TextInputState = {
    * Focuses the specified text field
    * noop if the text field was already focused
    */
-  focusTextInput: function(textFieldID: ?number) {
+  focusTextInput: function(textFieldID: ?number, animateKeyboard: ?bool) {
     if (this._currentlyFocusedID !== textFieldID && textFieldID !== null) {
       this._currentlyFocusedID = textFieldID;
       if (Platform.OS === 'ios') {
-        UIManager.focus(textFieldID);
+        UIManager.focus(textFieldID, 
+          typeof animateKeyboard === 'boolean' ? animateKeyboard : true);
       } else if (Platform.OS === 'android') {
         UIManager.dispatchViewManagerCommand(
           textFieldID,
@@ -57,11 +58,12 @@ var TextInputState = {
    * Unfocuses the specified text field
    * noop if it wasn't focused
    */
-  blurTextInput: function(textFieldID: ?number) {
+  blurTextInput: function(textFieldID: ?number, animateKeyboard: ?bool) {
     if (this._currentlyFocusedID === textFieldID && textFieldID !== null) {
       this._currentlyFocusedID = null;
       if (Platform.OS === 'ios') {
-        UIManager.blur(textFieldID);
+        UIManager.blur(textFieldID, 
+          typeof animateKeyboard === 'boolean' ? animateKeyboard : true);
       } else if (Platform.OS === 'android') {
         UIManager.dispatchViewManagerCommand(
           textFieldID,

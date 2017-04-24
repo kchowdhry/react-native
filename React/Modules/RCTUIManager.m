@@ -963,19 +963,41 @@ RCT_EXPORT_METHOD(updateView:(nonnull NSNumber *)reactTag
   [componentData setProps:props forView:view];
 }
 
-RCT_EXPORT_METHOD(focus:(nonnull NSNumber *)reactTag)
+RCT_EXPORT_METHOD(focus:(nonnull NSNumber *)reactTag animateKeyboard:(BOOL)animateKeyboard)
 {
   [self addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+    if (!animateKeyboard) {
+      [UIView beginAnimations:nil context:nil];
+      [UIView setAnimationDuration:0.0];
+      [UIView setAnimationDelay:0.0];
+      [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    }
+
     UIView *newResponder = viewRegistry[reactTag];
     [newResponder reactFocus];
+
+    if (!animateKeyboard) {
+      [UIView commitAnimations];
+    }
   }];
 }
 
-RCT_EXPORT_METHOD(blur:(nonnull NSNumber *)reactTag)
+RCT_EXPORT_METHOD(blur:(nonnull NSNumber *)reactTag animateKeyboard:(BOOL)animateKeyboard)
 {
   [self addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry){
+    if (!animateKeyboard) {
+      [UIView beginAnimations:nil context:nil];
+      [UIView setAnimationDuration:0.0];
+      [UIView setAnimationDelay:0.0];
+      [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    }
+
     UIView *currentResponder = viewRegistry[reactTag];
     [currentResponder reactBlur];
+
+    if (!animateKeyboard) {
+      [UIView commitAnimations];
+    }
   }];
 }
 

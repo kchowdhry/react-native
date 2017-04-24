@@ -2493,10 +2493,10 @@ var ReactNativeFeatureFlags$1 = require("ReactNativeFeatureFlags"), mountSafeCal
     function ReactNativeComponent() {
         return _classCallCheck$1(this, ReactNativeComponent), _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
     }
-    return ReactNativeComponent.prototype.blur = function() {
-        TextInputState.blurTextInput(findNumericNodeHandle(this));
-    }, ReactNativeComponent.prototype.focus = function() {
-        TextInputState.focusTextInput(findNumericNodeHandle(this));
+    return ReactNativeComponent.prototype.blur = function(animateKeyboard) {
+        TextInputState.blurTextInput(findNumericNodeHandle(this), typeof animateKeyboard === 'boolean' ? animateKeyboard : this.props.animateKeyboard);
+    }, ReactNativeComponent.prototype.focus = function(animateKeyboard) {
+        TextInputState.focusTextInput(findNumericNodeHandle(this), typeof animateKeyboard === 'boolean' ? animateKeyboard : this.props.animateKeyboard);
     }, ReactNativeComponent.prototype.measure = function(callback) {
         UIManager.measure(findNumericNodeHandle(this), mountSafeCallback(this, callback));
     }, ReactNativeComponent.prototype.measureInWindow = function(callback) {
@@ -2549,11 +2549,11 @@ var ReactNativeComponent_1 = ReactNativeComponent, ReactNativeFeatureFlags$2 = r
     setNativeProps: function(nativeProps) {
         injectedSetNativeProps$1(this, nativeProps);
     },
-    focus: function() {
-        TextInputState.focusTextInput(findNumericNodeHandle$1(this));
+    focus: function(animateKeyboard) {
+        TextInputState.focusTextInput(findNumericNodeHandle$1(this), typeof animateKeyboard === 'boolean' ? animateKeyboard : this.props.animateKeyboard);
     },
-    blur: function() {
-        TextInputState.blurTextInput(findNumericNodeHandle$1(this));
+    blur: function(animateKeyboard) {
+        TextInputState.blurTextInput(findNumericNodeHandle$1(this), typeof animateKeyboard === 'boolean' ? animateKeyboard : this.props.animateKeyboard);
     }
 };
 
