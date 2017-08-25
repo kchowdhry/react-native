@@ -26,7 +26,6 @@ import android.text.TextUtils;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.JavascriptInterface;
@@ -332,8 +331,8 @@ public class ReactWebViewManager extends SimpleViewManager<WebView> {
 
   @Override
   protected WebView createViewInstance(ThemedReactContext reactContext) {
-    ReactWebView webView = new ReactWebView(reactContext);
-    webView.setWebChromeClient(new WebChromeClient() {
+    final ReactWebView webView = new ReactWebView(reactContext);
+    webView.setWebChromeClient(new VideoWebChromeClient(reactContext.getCurrentActivity(), webView) {
       @Override
       public boolean onConsoleMessage(ConsoleMessage message) {
         if (ReactBuildConfig.DEBUG) {
@@ -405,7 +404,7 @@ public class ReactWebViewManager extends SimpleViewManager<WebView> {
   public void setAllowUniversalAccessFromFileURLs(WebView view, boolean allow) {
     view.getSettings().setAllowUniversalAccessFromFileURLs(allow);
   }
-  
+
   @ReactProp(name = "saveFormDataDisabled")
   public void setSaveFormDataDisabled(WebView view, boolean disable) {
     view.getSettings().setSaveFormData(!disable);
@@ -499,7 +498,7 @@ public class ReactWebViewManager extends SimpleViewManager<WebView> {
         view.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
       } else if ("compatibility".equals(mixedContentMode)) {
         view.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-      } 
+      }
     }
   }
 
