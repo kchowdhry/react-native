@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.content.pm.ActivityInfo;
 
 import static android.view.ViewGroup.LayoutParams;
 
@@ -47,6 +48,7 @@ public class VideoWebChromeClient extends WebChromeClient {
     view.setBackgroundColor(Color.BLACK);
 
     getRootView().addView(view, FULLSCREEN_LAYOUT_PARAMS);
+    mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
   }
 
   @Override
@@ -63,6 +65,7 @@ public class VideoWebChromeClient extends WebChromeClient {
     getRootView().removeView(mVideoView);
     mVideoView = null;
     mCustomViewCallback.onCustomViewHidden();
+    mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
   }
 
   private ViewGroup getRootView() {
