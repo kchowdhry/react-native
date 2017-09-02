@@ -10,6 +10,10 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.content.pm.ActivityInfo;
 
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
+
 import static android.view.ViewGroup.LayoutParams;
 
 /**
@@ -22,11 +26,13 @@ public class VideoWebChromeClient extends WebChromeClient {
 
   private WebChromeClient.CustomViewCallback mCustomViewCallback;
 
+  private ReactContext mReactContext;
   private Activity mActivity;
   private View mWebView;
   private View mVideoView;
 
-  public VideoWebChromeClient(Activity activity, WebView webView) {
+  public VideoWebChromeClient(ReactContext context, Activity activity, WebView webView) {
+    mReactContext = context;
     mWebView = webView;
     mActivity = activity;
   }
@@ -48,7 +54,10 @@ public class VideoWebChromeClient extends WebChromeClient {
     view.setBackgroundColor(Color.BLACK);
 
     getRootView().addView(view, FULLSCREEN_LAYOUT_PARAMS);
-    mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+
+    mReactContext
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+            .emit("VideoBecameFullscreen", null);
   }
 
   @Override
@@ -65,7 +74,10 @@ public class VideoWebChromeClient extends WebChromeClient {
     getRootView().removeView(mVideoView);
     mVideoView = null;
     mCustomViewCallback.onCustomViewHidden();
-    mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+    mReactContext
+            .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+            .emit("VideoBecameFullscreen", null);
   }
 
   private ViewGroup getRootView() {
