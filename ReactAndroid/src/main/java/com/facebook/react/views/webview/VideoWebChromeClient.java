@@ -77,7 +77,7 @@ public class VideoWebChromeClient extends WebChromeClient {
 
     mReactContext
             .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-            .emit("VideoBecameFullscreen", null);
+            .emit("VideoResignedFullscreen", null);
   }
 
   private ViewGroup getRootView() {
