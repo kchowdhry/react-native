@@ -40,7 +40,7 @@ hook.resolveRNStyle = require('flattenStyle');
 function findRenderer(): ReactRenderer {
   const renderers = hook._renderers;
   const keys = Object.keys(renderers);
-  invariant(keys.length === 1, 'Expected to find exactly one React Native renderer on DevTools hook.');
+  // invariant(keys.length === 1, 'Expected to find exactly one React Native renderer on DevTools hook.');
   return renderers[keys[0]];
 }
 
