@@ -213,6 +213,7 @@ public class ReactWebViewManager extends SimpleViewManager<WebView> {
   protected static class ReactWebView extends WebView implements LifecycleEventListener {
     private @Nullable String injectedJS;
     private boolean messagingEnabled = false;
+    private boolean onMessageDefined = false;
 
     private class ReactWebViewBridge {
       ReactWebView mContext;
@@ -263,9 +264,17 @@ public class ReactWebViewManager extends SimpleViewManager<WebView> {
       }
 
       messagingEnabled = enabled;
-      if (enabled) {
+      linkBridge();
+    }
+
+    public void setOnMessageDefined(boolean defined) {
+      if (onMessageDefined == defined) {
+        return;
+      }
+
+      onMessageDefined = defined;
+      if (onMessageDefined) {
         addJavascriptInterface(new ReactWebViewBridge(this), BRIDGE_NAME);
-        linkBridge();
       } else {
         removeJavascriptInterface(BRIDGE_NAME);
       }
@@ -418,6 +427,11 @@ public class ReactWebViewManager extends SimpleViewManager<WebView> {
   @ReactProp(name = "messagingEnabled")
   public void setMessagingEnabled(WebView view, boolean enabled) {
     ((ReactWebView) view).setMessagingEnabled(enabled);
+  }
+
+  @ReactProp(name = "onMessageDefined")
+  public void setOnMessageDefined(WebView view, boolean defined) {
+    ((ReactWebView) view).setOnMessageDefined(defined);
   }
 
   @ReactProp(name = "source")

@@ -427,7 +427,7 @@ class WebView extends React.Component {
       source.uri = this.props.url;
     }
 
-    const messagingEnabled = typeof this.props.onMessage === 'function';
+    const messagingEnabled = typeof this.props.messagingEnabled === 'undefined' ? typeof this.props.onMessage === 'function' : this.props.messagingEnabled;
 
     var webView =
       <RCTWebView

@@ -251,6 +251,8 @@ class WebView extends React.Component {
       console.warn('WebView: `source.body` is not supported when using GET.');
     }
 
+    const messagingEnabled = typeof this.props.messagingEnabled === 'undefined' ? typeof this.props.onMessage === 'function' : this.props.messagingEnabled;
+
     var webView =
       <RCTWebView
         ref={RCT_WEBVIEW_REF}
@@ -263,7 +265,8 @@ class WebView extends React.Component {
         javaScriptEnabled={this.props.javaScriptEnabled}
         thirdPartyCookiesEnabled={this.props.thirdPartyCookiesEnabled}
         domStorageEnabled={this.props.domStorageEnabled}
-        messagingEnabled={typeof this.props.onMessage === 'function'}
+        messagingEnabled={messagingEnabled}
+        onMessageDefined={!!this.onMessage}
         onMessage={this.onMessage}
         contentInset={this.props.contentInset}
         automaticallyAdjustContentInsets={this.props.automaticallyAdjustContentInsets}
