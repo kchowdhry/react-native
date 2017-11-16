@@ -395,6 +395,7 @@ class WebView extends React.Component {
 var RCTWebView = requireNativeComponent('RCTWebView', WebView, {
   nativeOnly: {
     messagingEnabled: PropTypes.bool,
+    onMessageDefined: PropTypes.bool,
   },
 });
 

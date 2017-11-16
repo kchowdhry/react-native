@@ -597,6 +597,7 @@ var RCTWebView = requireNativeComponent('RCTWebView', WebView, {
     onLoadingFinish: true,
     onMessage: true,
     messagingEnabled: PropTypes.bool,
+    onMessageDefined: PropTypes.bool,
   },
 });
 
