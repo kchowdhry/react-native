@@ -50,7 +50,7 @@ import com.facebook.react.modules.storage.AsyncStorageModule;
 import com.facebook.react.modules.timepicker.TimePickerDialogModule;
 import com.facebook.react.modules.toast.ToastModule;
 import com.facebook.react.modules.vibration.VibrationModule;
-import com.facebook.react.modules.websocket.WebSocketModule;
+import com.facebook.react.modules.websocket.CustomWebSocketModule;
 import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.views.art.ARTRenderableViewManager;
 import com.facebook.react.views.art.ARTSurfaceViewManager;
@@ -239,10 +239,10 @@ public class MainReactPackage extends LazyReactPackage {
           return new VibrationModule(context);
         }
       }),
-      new ModuleSpec(WebSocketModule.class, new Provider<NativeModule>() {
+      new ModuleSpec(CustomWebSocketModule.class, new Provider<NativeModule>() {
         @Override
         public NativeModule get() {
-          return new WebSocketModule(context);
+          return new CustomWebSocketModule(context);
         }
       }));
   }
